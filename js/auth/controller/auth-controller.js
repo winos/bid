@@ -15,14 +15,20 @@
 		// login access
 		this.login = function (user) {		
 			// validate user
-			console.log(user)
 			AuthService.loginPassword(user.username, user.password)
 				.then(function (data) {
-					alert(data.message)
-				}, function (err) {
-					alert(err.message)
+					$state.go('dash.auction')
+				}).catch(function (msg) {
+					console.log(msg)
 				})
-			//$state.go('dash.auction')
+		}
+
+		this.signup = function (user) {
+
+			AuthService.signup(user)
+				.then(function (data) {
+					AuthService.storage.set('jwt', data.token)
+				})
 		}
 	}
 

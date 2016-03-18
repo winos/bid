@@ -1,7 +1,8 @@
 (function(angular){
 
 	var dependencies = [
-		'ui.router'
+		'ui.router',
+        'angular-storage'
 	]
 
 	angular
@@ -33,7 +34,10 @@
             })
             .state('signup', {
                 url: '/signup',
-                templateUrl: 'views/auth/signup-tpl.html'
+                templateUrl: 'views/auth/signup-tpl.html',
+                controller: 'LoginController',
+                controllerAs: 'lc'
+
             })
             .state('forgot', {
         		url: '/forgot',

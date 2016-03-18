@@ -7,10 +7,10 @@
 		.service('AuthService', AuthService)
 
 	AuthService.$inject = [
-        '$q'
+        '$q', 'store'
     ]
 
-	function AuthService ($q) {
+	function AuthService ($q, store) {
 		
 		function loginPassword (username, password) {
 
@@ -25,11 +25,20 @@
 			})
 		}
 
+		function signup (user) {
+
+			return $q(function (resolve, reject) {						
+				resolve({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indpbm9zQGdtYWlsLmNvbSIsImFnZSI6MjMsImFkbWluIjp0cnVlfQ.fKl68NwSYOudJoSGG7B7QmJsQgR_IRcSpZgTdqfVdbY'})
+			})
+		}
+
 		// save credentials localstorage
-		
 
 		return {
-			loginPassword : loginPassword
+			signup: signup,
+			loginPassword: loginPassword,
+			// this is angular-storage
+			storage: store
 		}
 	}
 })()
