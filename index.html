@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app='bid'>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{appname}} {{title}}</title>
+	<meta name="description" content="The best auction site">
+	<meta name="author" content="bid" />
+	<!-- import webcomponents -->
+</head>
+
+<body>
+<div class="wrap">
+	<div ui-view>
+	</div>
+	<!--<div ui-view="header"></div>
+	<div ui-view="content"></div>
+	<div ui-view="footer"></div>-->	
+</div>
+<!-- dependencies -->
+<!--<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script> -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+<!-- app scripts -->
+<script src="js/main.js"></script>
+<script src="js/auth/auth.js"></script>
+
+<script src="js/auth/service/auth-service.js"></script>
+
+<script src="js/auth/controller/auth-controller.js"></script>
+
+
+
+</body>
+</html>

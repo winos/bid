@@ -1,0 +1,18 @@
+<!-- nav -->
+<div ui-view='nav'></div>
+
+<form ng-submit="lc.login(user)">
+	<label for="email">
+		Email
+		<input type="text" id="email" placeholder="Email" ng-model="user.username">
+	</label>
+	<label for="password">
+		Password
+		<input type="password" id="password" placeholder="Password" ng-model="user.password">
+	</label>
+	<input type="submit" name="submit" value="login">
+</form>
+<a ui-sref="forgot">olvide</a>
+
+
+<div ui-view='footer'></div>
