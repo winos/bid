@@ -8,11 +8,16 @@
 	<meta name="description" content="The best auction site">
 	<meta name="author" content="bid" />
 	<!-- import webcomponents -->
+
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 
 <body>
-<div class="wrap">
-	<div ui-view>
+<div class="row">
+	<div class="container">
+		
+	<div ui-view></div>
 	</div>
 	<!--<div ui-view="header"></div>
 	<div ui-view="content"></div>
@@ -25,13 +30,16 @@
 
 <script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
 
+<script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+
 <!-- app scripts -->
 <script src="js/main.js"></script>
 <script src="js/auth/auth.js"></script>
 
 <script src="js/auth/service/auth-service.js"></script>
+<script src="js/auth/service/authorizer-service.js"></script>
 <script src="js/auth/controller/auth-controller.js"></script>
-
+<script src="js/auth/controller/logout-controller.js"></script>
 
 </body>
 </html>

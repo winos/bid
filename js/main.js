@@ -11,8 +11,9 @@
 		.module('bid', dependencies)
 		.config(Config)
 		.run(Run)
+        
 
-	function Config ($urlRouterProvider, $stateProvider) {
+	function Config ($urlRouterProvider, $stateProvider, APP_PERMISSION) {
 
 		$urlRouterProvider.otherwise('/404');
 		
@@ -36,7 +37,10 @@
         	.state('dash', {
         		url: '/dash',
         		abstract: true,
-        		templateUrl: 'views/dashboard-tpl.html'
+        		templateUrl: 'views/dashboard-tpl.html',
+                data: {
+                    permissions : [APP_PERMISSION.viewDashboard]
+                }
         	})
         	.state('dash.profile', {
         		url: '/profile',

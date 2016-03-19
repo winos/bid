@@ -1,17 +1,32 @@
-<h1>this is dashboard</h1>
-<ul>
+<nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="home">Bidking</a>
+
+            <ul class="nav navbar-nav">
 	<li><a ui-sref="dash.auction">home</a></li>
 	<li><a ui-sref="dash.credits">creditos</a></li>
 	<li><a ui-sref="dash.gifts">regalos</a></li>
-
 </ul>
-
-<hr>
-<ul>
-	
-	<li><a ui-sref="dash.profile">perfil</a></li>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+         	
+         	
+            <ul class="nav navbar-nav navbar-right">
+            
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dawin Ossa <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+             <li><a ui-sref="dash.profile">perfil</a></li>
 	<li><a ui-sref="dash.invitation">invitaciòn</a></li>
 	<li><a ui-sref="dash.help">ayuda</a></li>
-	<li><a ui-sref="site">salir</a></li>
-</ul>
+                  <li role="separator" class="divider"></li>
+	<li><a ui-sref="logout">salir</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+</header>
 <div ui-view></div>

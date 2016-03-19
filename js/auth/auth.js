@@ -2,16 +2,26 @@
 
 	var dependencies = [
 		'ui.router',
-        'angular-storage'
+        'angular-storage',
+        'angular-jwt'
 	]
 
 	angular
 		.module('bid.auth', dependencies)
 		.config(Configuration)
         .run(Run)
+        .constant('APP_PERMISSION', {
+            viewDashboard : 'viewDashboard',
+            viewSite: 'viewSite'
+        })
+        .constant('APP_ROLES', {
+            anon: 'anon',
+            user: 'user',
+            administrator: 'administrator'
+        })
 
-    function Configuration ($stateProvider) {
-
+    function Configuration ($stateProvider, APP_PERMISSION) {
+        
         $stateProvider
             .state('login', {
                 url: '/login',
@@ -29,49 +39,64 @@
                     }
                 },
                 data: {
-                    role: 4 
+                    permissions: [APP_PERMISSION.viewSite]  
                 }
             })
             .state('signup', {
                 url: '/signup',
                 templateUrl: 'views/auth/signup-tpl.html',
                 controller: 'LoginController',
-                controllerAs: 'lc'
-
+                controllerAs: 'lc',
+                data: {
+                    permissions: [APP_PERMISSION.viewSite]  
+                }
+            })
+            .state('logout', {
+                url: '/logout',
+                controller: 'LogoutController',
+                controllerAs: 'lc',
+                data: {
+                    permissions: [APP_PERMISSION.viewDashboard]  
+                }
             })
             .state('forgot', {
         		url: '/forgot',
-        		templateUrl: 'views/auth/forgot-tpl.html'
+        		templateUrl: 'views/auth/forgot-tpl.html',
+                data: {
+                    permissions: [APP_PERMISSION.viewSite]  
+                }
         	})
 	}
 
-	function Run ($rootScope, $state) {
+	function Run ($rootScope, $state, store, AuthorizerService, jwtHelper, APP_ROLES) {
 
         // listen event stateChange
-		/*$rootScope.$on('$stateChangeStart', 
-			function (event, toState, toParams) { 
+        $rootScope.$on('$stateChangeStart', 
+            function (event, toState, toParams) { 
 
-                var roles = {
-                    anonRole: 4
+                var permissions = (toState.data && toState.data.permissions ) 
+                                  ? toState.data.permissions
+                                  : null
+
+                
+                var user = store.storage.get('jwt') 
+                            ? jwtHelper.decodeToken(store.storage.get('jwt'))
+                            : null
+
+                if (!user) {
+                    user  = {role: APP_ROLES.anon}
                 }
 
-                if ( !toState.hasOwnProperty('data') ) {
-                    toState.data = { role : 8 }
-                }
-
-                var Auth = {
-                        userLogged: function () {
-                            return true
-                        }
+                var authenticator = new AuthorizerService(user) 
+                
+                if ( permissions && !authenticator.canAccess(permissions) ) {
+                
+                    if ( !user || user.role === APP_ROLES.anon ) {   
+                        event.preventDefault()
+                        $state.go('login')
                     }
-            
-                if((toState.data.role === roles.anonRole) && Auth.userLogged()){
-                    $state.go('dash.auction');
-                    console.log('has access')
-                    //event.preventDefault();
                 }
-                console.log(toState.data)
-		})*/
-	}
+        })
+    }
 
 })(angular, undefined)

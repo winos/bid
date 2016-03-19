@@ -7,19 +7,24 @@
 		.module('bid.auth')
 		.controller('LoginController', LoginController)
 
-	// 
-	LoginController.$inject = ['$state', 'AuthService']
+	LoginController.$inject = ['$state', 'AuthService', 'AuthorizerService']
 
-	function LoginController ($state, AuthService) {
+	function LoginController ($state, AuthService, AuthorizerService) {
+		
+		//var authorizerService = new AuthorizerService({role:'user'}); 
+
+		//var ats =authorizerService.canAccess([
+		//	'viewAdminSettings'])
 		
 		// login access
 		this.login = function (user) {		
 			// validate user
 			AuthService.loginPassword(user.username, user.password)
 				.then(function (data) {
-					$state.go('dash.auction')
-				}).catch(function (msg) {
-					console.log(msg)
+					AuthService.storage.set('jwt', data.token)
+					$state.go('dash.auction', {}, {reload: true});
+				}).catch(function (data) {
+					alert(data.message)
 				})
 		}
 
@@ -28,7 +33,14 @@
 			AuthService.signup(user)
 				.then(function (data) {
 					AuthService.storage.set('jwt', data.token)
+					$state.go('dash.auction')
 				})
+		}
+
+
+		this.logout = function () {
+			$state.go('login')
+			AuthService.storage.remove('jwt')
 		}
 	}
 
