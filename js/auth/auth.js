@@ -68,15 +68,15 @@
         	})
 	}
 
-	function Run ($rootScope, $state, store, AuthorizerService, jwtHelper, APP_ROLES) {
+	function Run ($rootScope, $templateCache, $state, store, AuthorizerService, jwtHelper, APP_ROLES) {
 
         // listen event stateChange
         $rootScope.$on('$stateChangeStart', 
             function (event, toState, toParams) { 
 
                 var permissions = (toState.data && toState.data.permissions ) 
-                                  ? toState.data.permissions
-                                  : null
+                                    ? toState.data.permissions
+                                    : null
 
                 
                 var user = store.storage.get('jwt') 

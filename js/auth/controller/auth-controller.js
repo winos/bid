@@ -11,11 +11,6 @@
 
 	function LoginController ($state, AuthService, AuthorizerService) {
 		
-		//var authorizerService = new AuthorizerService({role:'user'}); 
-
-		//var ats =authorizerService.canAccess([
-		//	'viewAdminSettings'])
-		
 		// login access
 		this.login = function (user) {		
 			// validate user

@@ -28,7 +28,9 @@
 								access = (user.role === APP_ROLES.anon)
 							break
 						}
+
 				}
+				
 				return access
 			}
 

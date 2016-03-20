@@ -1,0 +1,6 @@
+.wrap-auctions > div.item-auction {
+	display: inline-block;
+	width: 20%;
+	background: #FCF8E3;
+	margin-right: 10px; 
+}

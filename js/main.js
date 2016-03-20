@@ -76,6 +76,10 @@
         	})
 	}
 
-	function Run () {}
+	function Run ($rootScope, $templateCache ) {
+        $rootScope.$on('$viewContentLoaded', function() {
+            $templateCache.removeAll();
+        });
+    }
 
 })()
