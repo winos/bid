@@ -1,7 +1,7 @@
 (function() {
 	'use strict'
 
-	// define service
+	// Define service
 	angular
 		.module('bid.auth')
 		.service('AuthService', AuthService)

@@ -1,7 +1,6 @@
 (function(angular){
 
 	var dependencies = [
-		'ui.router',
         'angular-storage',
         'angular-jwt'
 	]
@@ -20,8 +19,10 @@
             administrator: 'administrator'
         })
 
-    function Configuration ($stateProvider, APP_PERMISSION) {
+    function Configuration ($stateProvider, $httpProvider, APP_PERMISSION) {
         
+        $httpProvider.interceptors.push('AuthInterceptor')
+
         $stateProvider
             .state('login', {
                 url: '/login',
@@ -97,6 +98,8 @@
                     }
                 }
         })
+
+
     }
 
 })(angular, undefined)
