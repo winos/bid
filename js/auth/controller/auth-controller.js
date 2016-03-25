@@ -1,5 +1,4 @@
 (function() {
-
 	'use strict'
 
 	// definition module
@@ -16,8 +15,9 @@
 			// validate user
 			AuthService.loginPassword(user.username, user.password)
 				.then(function (data) {
-					var token  = data.data.data.token
-					AuthService.storage.set('jwt', token)
+					var response  = data.data.data
+					AuthService.storage.set('jwt', response.token)
+
 					$state.go('dash.auction', {}, {reload: true})
 				}).catch(function (data) {
 					alert(data.data.message)
@@ -38,5 +38,4 @@
 			AuthService.storage.remove('jwt')
 		}
 	}
-
 })()

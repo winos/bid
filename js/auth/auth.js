@@ -86,6 +86,8 @@
                             ? jwtHelper.decodeToken(store.storage.get('jwt'))
                             : null
 
+                $rootScope.user = user
+
                 if (!user) {
                     user  = {role: APP_ROLES.anon}
                 }
