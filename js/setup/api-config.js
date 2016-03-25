@@ -7,7 +7,7 @@
 
 	function ConfigApi () {
 
-		var apiObj =  {
+		var api =  {
 			url : {
 				endpointApi: 'localhost:8080',
 				protocol: 'http'
@@ -18,10 +18,11 @@
 		}
 
 		return  {
-			host: apiObj.url.endpointApi,
+			host: api.url.endpointApi,
 			//Routes
-			auctions: apiObj.point('auctions'),
-			authenticate: apiObj.point('authenticate')
+			auctions: api.point('auctions'),
+			authenticate: api.point('authenticate'),
+			signup: api.point('users')
 		}
 	}
 })()

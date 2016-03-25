@@ -11,6 +11,7 @@
 		.module('bid', dependencies)
 		.config(Config)
 		.run(Run)
+        .constant('_', window._)
         
 
 	function Config ($urlRouterProvider, $stateProvider, APP_PERMISSION) {

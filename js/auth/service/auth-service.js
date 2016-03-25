@@ -7,32 +7,20 @@
 		.service('AuthService', AuthService)
 
 	AuthService.$inject = [
-        '$q', 'store', '$http', 'API'
+        '$q', 'store', 'API', 'RequestService'
     ]
 
-	function AuthService ($q, store, $http, API ) {
+	function AuthService ($q, store, API, RequestService ) {
 				
 		function loginPassword (username, password) {
-			//console.log(API.authenticate)
-	
-			return $http({
-				method: 'POST',
-				url: API.authenticate,
-				data: {
-					email: username,
-					password: password
-				}
-			})
+			var data = {email: username,password: password} 
+			return RequestService('post', data, API.authenticate)
 		}
 
 		function signup (user) {
-
-			return $q(function (resolve, reject) {						
-				resolve({token: emulateToken})
-			})
+			return RequestService('post', user, API.signup)
 		}
 
-		// save credentials localstorage
 		return {
 			signup: signup,
 			loginPassword: loginPassword,

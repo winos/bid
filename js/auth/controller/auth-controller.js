@@ -6,9 +6,9 @@
 		.module('bid.auth')
 		.controller('LoginController', LoginController)
 
-	LoginController.$inject = ['$state', 'AuthService', 'AuthorizerService']
+	LoginController.$inject = ['$state', 'AuthService', 'AuthorizerService', '_']
 
-	function LoginController ($state, AuthService, AuthorizerService) {
+	function LoginController ($state, AuthService, AuthorizerService, _) {
 		
 		// login access
 		this.login = function (user) {		
@@ -26,10 +26,15 @@
 
 		this.signup = function (user) {
 
-			AuthService.signup(user)
+			var data = _.omit(user, 'birthday')
+
+			AuthService.signup(data)
 				.then(function (data) {
-					AuthService.storage.set('jwt', data.token)
+					var response  = data.data.response
+					AuthService.storage.set('jwt', response.token)
 					$state.go('dash.auction')
+				}).catch(function (data) {
+					alert(data.data.message)
 				})
 		}
 
