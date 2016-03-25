@@ -69,7 +69,9 @@
         	})
 	}
 
-	function Run ($rootScope, $templateCache, $state, store, AuthorizerService, jwtHelper, APP_ROLES) {
+	function Run (
+        $rootScope, $templateCache, $state, store, 
+        AuthorizerService, jwtHelper, APP_ROLES) {
 
         // listen event stateChange
         $rootScope.$on('$stateChangeStart', 
@@ -97,9 +99,7 @@
                         $state.go('login')
                     }
                 }
-        })
-
-
+            })
     }
 
 })(angular, undefined)

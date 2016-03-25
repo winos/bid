@@ -16,10 +16,11 @@
 			// validate user
 			AuthService.loginPassword(user.username, user.password)
 				.then(function (data) {
-					AuthService.storage.set('jwt', data.token)
-					$state.go('dash.auction', {}, {reload: true});
+					var token  = data.data.data.token
+					AuthService.storage.set('jwt', token)
+					$state.go('dash.auction', {}, {reload: true})
 				}).catch(function (data) {
-					alert(data.message)
+					alert(data.data.message)
 				})
 		}
 
@@ -31,7 +32,6 @@
 					$state.go('dash.auction')
 				})
 		}
-
 
 		this.logout = function () {
 			$state.go('login')

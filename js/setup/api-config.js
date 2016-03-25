@@ -9,17 +9,19 @@
 
 		var apiObj =  {
 			url : {
-				endpointApi: 'apibidking.heroku.com'
+				endpointApi: 'localhost:8080',
+				protocol: 'http'
 			},
 			point: function (endpoint) {
-				return `${this.url.endpointApi}/${endpoint}`
+				return `${this.url.protocol}://${this.url.endpointApi}/${endpoint}`
 			}
 		}
 
 		return  {
-			host: apiObj.url.endpointApi
-			// Routes
+			host: apiObj.url.endpointApi,
+			//Routes
 			auctions: apiObj.point('auctions'),
+			authenticate: apiObj.point('authenticate')
 		}
 	}
 })()
