@@ -3,7 +3,8 @@
 
 	var dependencies = [
 		'ui.router',
-		'bid.auth'
+		'bid.auth',
+        'bid.auction'
 	]
 
 	// Create Module
@@ -53,7 +54,9 @@
         	})
         	.state('dash.auction', {
         		url: '/auction',
-        		templateUrl: 'views/auctions/auctions-tpl.html'
+        		templateUrl: 'views/auctions/auctions-tpl.html',
+                controller: 'AuctionController',
+                controllerAs: 'ac'
         	})
         	
         	.state('dash.gifts', {

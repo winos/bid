@@ -10,9 +10,9 @@ angular
 
 		function request(method, params, url) {
 
+			console.log('request params', params)
 			switch(method) {
 				case 'post':
-					console.log('request params', params)
 					return $http({method:'POST', data:params, url:url})
 				break
 
