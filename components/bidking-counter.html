@@ -1,0 +1,87 @@
+<!-- @author: Dawin Ossa -->
+<!-- @version: 1.0.0 -->
+<dom-module id="bidking-counter">
+  <template>
+	<style>
+		span {
+			display: inline-block;
+			background-color: green;
+			color: white;
+			border-radius: 8px;
+			padding: 10px;
+		}
+		.lthrough {
+			text-decoration: line-through;
+		}
+	</style>
+    <span id="counterLabel">{{time}}</span>	
+  </template>
+</dom-module>
+
+<script>
+BidwinCounter = (function(Ply){
+
+	Ply({
+    	is: "bidking-counter",	
+
+    	/**
+    	 * Commons
+    	 */
+		ready: function() {
+			this.start()
+		},
+		
+		created: function() {
+
+  		},
+					
+		start: function () {
+
+			var increment = 1000
+			const self = this
+
+			self.time = self.init
+			
+			this.timer = setInterval(function() {
+				self.time--
+			}, increment)
+		},
+
+  		stop: function() {
+			clearInterval(this.timer)
+  		},	
+
+  		changeToEndStyle: function () {
+  			this.$.counterLabel.className +=  ' lthrough' 
+  		},
+
+  		changeToInitStyle: function () {
+  		},
+
+  		reset: function () {
+			this.stop()
+  			this.start()
+  		},
+
+      	_timeChanged : function (newval) {
+      		if ( newval === 0 ) {
+      			this.stop()
+        		this.fire('finished', {finish: true});
+      		}
+      	},
+
+		properties: {
+			time: {
+				type: String,
+				value: "",
+				observer: '_timeChanged'
+			},
+			
+			init: {
+				type: String,
+				value: 10
+			}
+		}
+	});
+})(Polymer)
+</script>
