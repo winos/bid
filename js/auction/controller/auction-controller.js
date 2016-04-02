@@ -23,7 +23,7 @@
 			})
 
 			auction.price = data.price
-			auction.time_rules.init = 100
+			auction.time_rules.init = data.time_init
 			auction.bids = {user: data.username, time:data.time}
 		})
 

@@ -11,7 +11,7 @@ angular
 		properties.restrict = 'E'
 		properties.scope = {
 			time: '=',
-			saveProperties: '&onSave'
+			//saveProperties: '&onSave'
 		}
 		
 		properties.link = function (scope, element, attrs) {
