@@ -6,15 +6,27 @@
 		.module('bid.auction')
 		.controller('AuctionController', AuctionController)
 
-	AuctionController.$inject = ['$state', 'AuctionService', '_']
+	AuctionController.$inject = [
+	'$rootScope', 'AuctionService',	'_', 'SocketService', 'AuthService']
 
-	function AuctionController ($state, AuctionService, _) {
+	function AuctionController ($rootScope,AuctionService, _, 
+		SocketService, AuthService) {
 		var self = this
 
-		self.bid = {
-			//user:  {name:'Dawin Ossa', credits: 100}
-		}
-		
+		// collection of auctions		
+		self.auctions = []
+
+		SocketService.on('auction:refresh', function (data) {
+
+			var auction = _.find(self.auctions, function(auction){
+				return auction._id === data.auction_id
+			})
+
+			auction.price = data.price
+			auction.time_rules.init = 100
+			auction.bids = {user: data.username, time:data.time}
+		})
+
 		// list all auctions
 		this.list = function () {		
 			// validate user
@@ -29,20 +41,24 @@
 		this.giveMore = giveMore
 
 		function giveMore (auction) {
-			if (!self.bid.user) {
-				self.bid.user = {name:'Dawin Ossa', credits: 100}
-			} else {
+			var currentUser = AuthService.userLogged() 
+			
+			var data =  { 
+				user: currentUser, 
+				auction: auction._id
+			} 
 
-				var credits = self.bid.user.credits
-				
-				if (credits > 0) {
-					self.auctions[0].price += 1
-					self.auctions[0].time_rules.init = 20 
-					self.bid.user.credits -= 3 
-				} else {
-					alert('se te acabaron los creditos')
-					self.bid = {}
-				}
+			var differenceCredits =  $rootScope.user.credits.general - auction.credits_required 
+
+			if (differenceCredits >= 0 ) {
+				SocketService.emit('auction:newbid', data, function(data) {
+					if (data.reset) {
+						$rootScope.user.credits.general -= auction.credits_required 
+					}
+				})			
+			}
+			else {
+				alert('Señor usted no posee creditos suficientes para pujar, por favor recargue :D')
 			}
 		}
 

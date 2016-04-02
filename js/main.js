@@ -80,7 +80,8 @@
         	})
 	}
 
-	function Run ($rootScope, $templateCache ) {
+	function Run ($rootScope, $templateCache, SocketService) {
+        
         $rootScope.$on('$viewContentLoaded', function() {
             $templateCache.removeAll();
         });

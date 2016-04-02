@@ -1,7 +1,6 @@
 <section id="live-auction">
 	<div class="row">
 		<h1>Subastas en vivo</h1>
-
 		<div class="container">
 			<div class="wrap-auctions">
 				<div class="item-auction" ng-repeat="auction in ac.auctions">
@@ -24,7 +23,7 @@
 						</span>
 
 						<span>
-							user: {{ac.bid | json}}
+							user: {{auction.bids.user}}
 						</span>
 
 						<div class="timer">
