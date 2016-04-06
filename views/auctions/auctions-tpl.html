@@ -23,15 +23,14 @@
 						</span>
 
 						<span>
-							user: {{auction.bids.user}}
 						</span>
-
-						<div class="timer">
+						<div class="timer" ng-hide='auction.active'>
 							<p>Vamos te quedan</p>
 							<bidking-counter time="auction.time_rules.init"></bidking-counter>
 						</div>
 						<div class="bid-control">
-							<span class="btn btn-primary" ng-click="ac.giveMore(auction)">Yo doy màs</span>
+							<span class="btn btn-primary" ng-click="ac.giveMore(auction)" ng-hide='auction.active'>YO DOY MÀS</span>
+							<span class="btn btn-primary" ng-hide='!auction.active'>subasta cerrada</span>
 						</div>
 					</div>
 

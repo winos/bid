@@ -11,7 +11,6 @@ angular
 		properties.restrict = 'E'
 		properties.scope = {
 			time: '=',
-			//saveProperties: '&onSave'
 		}
 		
 		properties.link = function (scope, element, attrs) {
@@ -19,7 +18,7 @@ angular
 			var timeoutId
 			,	time
 
-			start()
+			//start()
 
     		function updateTime() {
     			scope.time--
@@ -28,16 +27,7 @@ angular
     				stop()
     		}
 
-			/*scope.save = function () {
-				// call the method of controller from here
-			}*/
-
-			/*scope.changeText = function (data, call) {
-				parserData(data)
-				if (call  && call !== undefined ) call(data)
-			}*/
-
-			// run counter
+			//run counter
 
 			function start () {
 				timeoutId = $interval(function() {
