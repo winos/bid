@@ -11,7 +11,7 @@
     ]
 
 	function AuctionService (API, RequestService) {
-				
+
 		function listAuction (data) {
 			return RequestService('get', data, API.auctions)
 		}

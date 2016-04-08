@@ -1,5 +1,5 @@
 (function(angular){
-
+	'use strict'
 	var dependencies = []
 
 	angular

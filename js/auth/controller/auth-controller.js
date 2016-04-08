@@ -6,20 +6,23 @@
 		.module('bid.auth')
 		.controller('LoginController', LoginController)
 
-	LoginController.$inject = ['$state', 'AuthService', 'AuthorizerService', '_']
+	LoginController.$inject = ['$state', '$rootScope','AuthService', 'AuthorizerService', '_']
 
-	function LoginController ($state, AuthService, AuthorizerService, _) {
-		
+	function LoginController ($state,$rootScope, AuthService, AuthorizerService, _) {
+
 		// login access
-		this.login = function (user) {		
+		this.login = function (user) {
 			// validate user
 			AuthService.loginPassword(user.username, user.password)
 				.then(function (data) {
-					var response  = data.data.data
-					AuthService.storage.set('jwt', response.token)
-
+					var response  = data.data.data.token
+					AuthService.storage.set('jwt', response)
 					$state.go('dash.auction', {}, {reload: true})
-				}).catch(function (data) {
+				}).then(function (token) {
+						$state.go('dash.auction', {}, {reload: true})
+				})
+
+				.catch(function (data) {
 					alert(data.data.message)
 				})
 		}

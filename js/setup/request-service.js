@@ -10,14 +10,13 @@ angular
 
 		function request(method, params, url) {
 
-			console.log('request params', params)
 			switch(method) {
 				case 'post':
 					return $http({method:'POST', data:params, url:url})
 				break
 
 				case 'get':
-					return $http({method:'GET', data:params, url:url})
+					return $http({method:'GET', params:params, url:url})
 				break
 
 				default:

@@ -20,7 +20,7 @@
         })
 
     function Configuration ($stateProvider, $httpProvider, APP_PERMISSION) {
-        
+
         $httpProvider.interceptors.push('AuthInterceptor')
 
         $stateProvider
@@ -40,7 +40,7 @@
                     }
                 },
                 data: {
-                    permissions: [APP_PERMISSION.viewSite]  
+                    permissions: [APP_PERMISSION.viewSite]
                 }
             })
             .state('signup', {
@@ -49,7 +49,7 @@
                 controller: 'LoginController',
                 controllerAs: 'lc',
                 data: {
-                    permissions: [APP_PERMISSION.viewSite]  
+                    permissions: [APP_PERMISSION.viewSite]
                 }
             })
             .state('logout', {
@@ -57,46 +57,50 @@
                 controller: 'LogoutController',
                 controllerAs: 'lc',
                 data: {
-                    permissions: [APP_PERMISSION.viewDashboard]  
+                    permissions: [APP_PERMISSION.viewDashboard]
                 }
             })
             .state('forgot', {
         		url: '/forgot',
         		templateUrl: 'views/auth/forgot-tpl.html',
                 data: {
-                    permissions: [APP_PERMISSION.viewSite]  
+                    permissions: [APP_PERMISSION.viewSite]
                 }
         	})
 	}
 
 	function Run (
-        $rootScope, $templateCache, $state, store, 
-        AuthorizerService, jwtHelper, APP_ROLES) {
+        $rootScope, $templateCache, $state, store,
+        AuthorizerService, jwtHelper, APP_ROLES, AuthService) {
 
         // listen event stateChange
-        $rootScope.$on('$stateChangeStart', 
-            function (event, toState, toParams) { 
+        $rootScope.$on('$stateChangeStart',
+            function (event, toState, toParams) {
 
-                var permissions = (toState.data && toState.data.permissions ) 
+                var permissions = (toState.data && toState.data.permissions )
                                     ? toState.data.permissions
                                     : null
 
-                
-                var user = store.storage.get('jwt') 
+
+                var user = store.storage.get('jwt')
                             ? jwtHelper.decodeToken(store.storage.get('jwt'))
                             : null
 
-                $rootScope.user = user
+								if (user) {
+	                AuthService.me().then(function(me) {
+	                    $rootScope.user = me.data
+	                })
+								}
 
                 if (!user) {
                     user  = {role: APP_ROLES.anon}
                 }
 
-                var authenticator = new AuthorizerService(user) 
-                
+                var authenticator = new AuthorizerService(user)
+
                 if ( permissions && !authenticator.canAccess(permissions) ) {
-                
-                    if ( !user || user.role === APP_ROLES.anon ) {   
+
+                    if ( !user || user.role === APP_ROLES.anon ) {
                         event.preventDefault()
                         $state.go('login')
                     }

@@ -22,7 +22,8 @@
 			//Routes
 			auctions: api.point('auctions'),
 			authenticate: api.point('authenticate'),
-			signup: api.point('users')
+			signup: api.point('users'),
+			me: api.point('users/me')
 		}
 	}
 })()
