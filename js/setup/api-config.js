@@ -20,10 +20,11 @@
 		return  {
 			host: api.url.endpointApi,
 			//Routes
-			auctions: api.point('auctions'),
 			authenticate: api.point('authenticate'),
+			auctions: api.point('auctions'),
 			signup: api.point('users'),
-			me: api.point('users/me')
+			me: api.point('users/me'),
+			credits: api.point('credits')
 		}
 	}
 })()

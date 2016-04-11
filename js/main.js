@@ -4,21 +4,20 @@
 	var dependencies = [
 		'ui.router',
 		'bid.auth',
-        'bid.auction'
+    'bid.auction',
+    'bid.credits'
 	]
-
 	// Create Module
 	angular
 		.module('bid', dependencies)
 		.config(Config)
 		.run(Run)
-        .constant('_', window._)
-        
+    .constant('_', window._)
 
 	function Config ($urlRouterProvider, $stateProvider, APP_PERMISSION) {
 
 		$urlRouterProvider.otherwise('/404');
-		
+
 		$stateProvider
 			.state('home', {
             	url: '/',
@@ -55,17 +54,19 @@
         	.state('dash.auction', {
         		url: '/auction',
         		templateUrl: 'views/auctions/auctions-tpl.html',
-                controller: 'AuctionController',
-                controllerAs: 'ac'
+            controller: 'AuctionController',
+            controllerAs: 'ac'
         	})
-        	
+
         	.state('dash.gifts', {
         		url: '/gifts',
         		templateUrl: 'views/gifts/gifts-tpl.html'
         	})
         	.state('dash.credits', {
         		url: '/credits',
-        		templateUrl: 'views/credits/credits-tpl.html'
+        		templateUrl: 'views/credits/credits-tpl.html',
+						controller: 'CreditController',
+						controllerAs: 'cc'
         	})
         	// help
         	.state('dash.help', {
@@ -81,7 +82,7 @@
 	}
 
 	function Run ($rootScope, $templateCache, SocketService) {
-        
+
         $rootScope.$on('$viewContentLoaded', function() {
             $templateCache.removeAll();
         });
