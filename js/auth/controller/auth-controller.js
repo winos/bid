@@ -18,10 +18,7 @@
 					var response  = data.data.data.token
 					AuthService.storage.set('jwt', response)
 					$state.go('dash.auction', {}, {reload: true})
-				}).then(function (token) {
-						$state.go('dash.auction', {}, {reload: true})
 				})
-
 				.catch(function (data) {
 					alert(data.data.message)
 				})
@@ -29,9 +26,7 @@
 
 		this.signup = function (user) {
 
-			var data = _.omit(user, 'birthday')
-
-			AuthService.signup(data)
+			AuthService.signup(user)
 				.then(function (data) {
 					var response  = data.data.response
 					AuthService.storage.set('jwt', response.token)

@@ -1,35 +1,32 @@
 <h1>
 registro
 </h1>
-
 <form ng-submit="lc.signup(user)">
 	<label for="name">
-		name
-		<input type="text" ng-model="user.name"id="name" placeholder="name">
+		Nombre
+		<input type="text" ng-model="user.firstName" id="firstName" placeholder="firstName">
 	</label>
 	<label for="name">
-		lastname
-		<input type="text" ng-model="user.lastname" id="lastname" placeholder="lastname">
+		Apellido
+		<input type="text" ng-model="user.lastName" id="lastName" placeholder="lastName">
 	</label>
 
 	<label for="username">
-		Username
-		<input type="text" ng-model="user.username"id="username" placeholder="username">
+		Nombre de usuario
+		<input type="text" ng-model="user.username" id="username" placeholder="username">
 	</label>
 	<label for="password">
-		Password
-		<input type="password" ng-model="user.password"id="password" placeholder="Password">
+		Contraseña
+		<input type="password" ng-model="user.password" id="password" placeholder="Password">
 	</label>
 	<label for="email">
 		Email
-		<input type="text" ng-model="user.email"id="email" placeholder="Email">
+		<input type="text" ng-model="user.email" id="email" placeholder="Email">
 	</label>
 	<label for="birthday">
-		Date born
-		<input type="date" ng-model="user.birthday"id="birthday" placeholder="date">
+		Fecha de nacimiento
+		<input type="date" ng-model="user.birthday" id="birthday" placeholder="date">
 	</label>
-
 	<input type="submit" name="submit" value="register">
 </form>
-
 Or<a ui-sref="login">login</a>
